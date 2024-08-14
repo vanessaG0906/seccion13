@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Barra de progreso</title>
+	<style>
+		#progreso{
+			width: 100%;
+			background-color: lightgray;
+		}
+
+		#barra{
+			width: 0%;
+			height: 30px;
+			background-color: royalblue;
+			text-align: center;
+			padding-top: 12px;
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			var i = 0;
+			document.getElementById("inicio").addEventListener("click",()=>{
+				if (i==0) {
+					i=1;
+					var barra = document.getElementById("barra");
+					var porcien = 1;
+					var id = setInterval(avanza,50);
+
+					function avanza() {
+						if (porcien >= 100) {
+							i = 0;
+							clearInterval(id);
+						} else {
+							porcien++;
+							barra.style.width = porcien + "%";
+							barra.innerText = porcien + "%";
+						}
+					}
+				}
+			})
+		}
+	</script>
+</head>
+<body>
+	<h1>Descargar los archivos</h1>
+	<div id="progreso">
+		<div id="barra"></div>
+	</div>
+	<br>
+	<button id="inicio">Inicio de la descarga</button>
+</body>
+</html>
