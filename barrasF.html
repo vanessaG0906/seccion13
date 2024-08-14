@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Barras animadas</title>
+  <style>
+    * { box-sizing:border-box; }
+    .contenedor{
+      width:100%;
+      background-color: lightgray;
+    }
+    .barra{
+      text-align: right;
+      padding: 10px 10px 10px 0;
+      color: white;
+    }
+  </style>
+  <script>
+    window.onload = function(){
+      var datos = [];
+      var i = 0;
+      var xhttp = new XMLHttpRequest();
+      xhttp.open("GET","helados.xml");
+      xhttp.send();
+      xhttp.onreadystatechange=function(){
+        if (xhttp.readyState==4 && xhttp.status==200) {
+          datos = calcular(xhttp.responseXML);
+          console.log(datos);
+        }
+      }
+      //
+      function calcular(xmlDoc) {
+        var helados = xmlDoc.documentElement.childNodes;
+        var datos = [];
+
+        for (var i = 0; i < helados.length; i++) {
+          if(helados[i].nodeType==1){
+            helado = helados[i].childNodes;
+            datos.push({
+              barra:helado[1].childNodes[0].nodeValue,
+              num:parseInt(helado[3].childNodes[0].nodeValue),
+              color:"#"+helado[5].childNodes[0].nodeValue,
+              porcien:0,
+              avance:0
+            })
+          }
+        }
+        //
+        i = 0;
+        var major = 0;
+        for (var ii = 0; ii < datos.length; ii++) {
+          major = Math.max(datos[ii].num,major);
+        }
+        for (ii = 0; ii < datos.length; ii++) {
+          datos[ii].porcien = Math.round(datos[ii].num/major*100);
+          datos[ii].id = document.getElementById(datos[ii].barra);
+        }
+        return datos;
+      }
+     
+
+      document.getElementById("inicio").addEventListener("click",()=>{
+        if (i==0) {
+          i=1;
+          var id = setInterval(avanza,30);
+
+          function avanza() {
+            for (var ii = 0; ii < datos.length; ii++) {
+              if(datos[ii].avance >= datos[ii].porcien){
+                i=0;
+                datos[ii].id.innerText =datos[ii].num;
+              } else {
+                datos[ii].avance++;
+                datos[ii].id.style.width = datos[ii].avance + "%";
+                datos[ii].id.style.backgroundColor = datos[ii].color;
+              }
+            }
+          }
+        }
+      })
+    }
+  </script>
+</head>
+<body>
+<h1>Helados</h1>
+<p>Chocolate</p>
+<div class="contenedor">
+  <div class="barra" id="chocolate">&nbsp;</div>
+</div>
+<p>Vainilla</p>
+<div class="contenedor">
+  <div class="barra" id="vainilla">&nbsp;</div>
+</div>
+<p>Fresa</p>
+<div class="contenedor">
+  <div class="barra" id="fresa">&nbsp;</div>
+</div>
+<p>Pistache</p>
+<div class="contenedor">
+  <div class="barra" id="pistache">&nbsp;</div>
+</div>
+<br>
+<button id="inicio">Inciar animación</button>
+</body>
+</html>

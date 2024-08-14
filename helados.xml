@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<helados>
+	<helado>
+		<sabor>chocolate</sabor>
+		<num>22</num>
+		<color>d2691e</color>
+	</helado>
+	<helado>
+		<sabor>vainilla</sabor>
+		<num>18</num>
+		<color>8b8000</color>
+	</helado>
+	<helado>
+		<sabor>fresa</sabor>
+		<num>10</num>
+		<color>e06666</color>
+	</helado>
+	<helado>
+		<sabor>pistache</sabor>
+		<num>8</num>
+		<color>b6d7a8</color>
+	</helado>
+</helados>
