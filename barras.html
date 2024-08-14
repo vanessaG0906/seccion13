@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Barras animadas</title>
+  <style>
+    * { box-sizing:border-box; }
+    .contenedor{
+      width:100%;
+      background-color: lightgray;
+    }
+    .barra{
+      text-align: right;
+      padding: 10px 10px 10px 0;
+      color: white;
+    }
+  </style>
+  <script>
+    window.onload = function(){
+      var datos = [
+        {barra:"chocolate", num:18, color:"#d2691e", porcien:0, avance:0},
+        {barra:"vainilla", num:12, color:"#8b8000", porcien:0, avance:0},
+        {barra:"fresa", num:10, color:"#e06666", porcien:0, avance:0},
+        {barra:"pistache", num:8, color:"#b6d7a8", porcien:0, avance:0},
+      ];
+      //
+      var i = 0;
+      var major = 0;
+      for (var ii = 0; ii < datos.length; ii++) {
+        major = Math.max(datos[ii].num,major);
+      }
+      for (ii = 0; ii < datos.length; ii++) {
+        datos[ii].porcien = Math.round(datos[ii].num/major*100);
+        datos[ii].id = document.getElementById(datos[ii].barra);
+        console.log(datos[ii].porcien);
+      }
+    }
+  </script>
+</head>
+<body>
+<h1>Helados</h1>
+<p>Chocolate</p>
+<div class="contenedor">
+  <div class="barra" id="chocolate">&nbsp;</div>
+</div>
+<p>Vainilla</p>
+<div class="contenedor">
+  <div class="barra" id="vainilla">&nbsp;</div>
+</div>
+<p>Fresa</p>
+<div class="contenedor">
+  <div class="barra" id="fresa">&nbsp;</div>
+</div>
+<p>Pistache</p>
+<div class="contenedor">
+  <div class="barra" id="pistache">&nbsp;</div>
+</div>
+<br>
+<button id="inicio">Inciar animación</button>
+</body>
+</html>
